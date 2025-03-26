@@ -1,0 +1,147 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    padding-bottom: 60px; /* Ajout d'un espace au-dessus du footer pour ne pas masquer le contenu */
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+nav h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 17px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #333;
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+.tab {
+    position: relative;
+    width: 1460px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+
+.image {
+    width: 200px; /* Taille de l'image */
+    margin-right: 20px; /* Espacement entre l'image et le contenu */
+}
+
+.image img {
+    width: 100%; /* Adapter l'image à la taille du conteneur */
+    height: auto; /* Conserver les proportions de l'image */
+    border-radius: 10px; /* Bords arrondis */
+}
+
+.nom {
+    font-weight: bold; /* Texte en gras */
+    font-size: 1.5em; /* Taille de la police du titre */
+    margin-bottom: 10px; /* Espace sous le titre */
+}
+
+.carac {
+    font-size: 1em; /* Taille de la police normale */
+    margin-bottom: 20px; /* Espace sous les caractéristiques */
+}
+
+.prix {
+    font-size: 0.9em; /* Taille de la police du prix */
+    padding: 5px 10px; /* Espace intérieur du cadre */
+    background-color: #7b9ca4; /* Couleur de fond du cadre */
+    border-radius: 5px; /* Bords arrondis */
+    position: absolute;
+    bottom: 10px;
+    left: 10px; /* Positionné en bas à gauche */
+}
+
+
+.btn-devis {
+    
+   
+background-color: #000000;
+    
+   
+color: white;
+    
+   
+padding: 10px 20px;
+    
+   
+text-decoration: none;
+    
+   
+border-radius: 5px;
+    
+   
+font-weight: bold;
+}
+
+.btn-devis:hover {
+    background-color: #000000;
+}
+
+footer {
+    background-color: #000; /* Couleur de la barre noire */
+    color: #fff; /* Texte en blanc */
+    text-align: center;
+    padding: 20px 0; /* Ajoute de l'espace en haut et en bas du texte */
+    position: relative; /* Le footer n'est plus fixé en bas */
+    left: 0;
+    right: 0; /* S'assure que le footer s'étend sur toute la largeur */
+    width: 100%; /* Prend 100% de la largeur */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Ombre au-dessus du footer */
+    font-size: 14px;
+    z-index: 1000;
+}

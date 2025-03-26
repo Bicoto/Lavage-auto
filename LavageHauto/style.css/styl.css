@@ -1,0 +1,137 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+nav h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 17px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #333;
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    background-color: #f0f0f0;
+    color: #000;
+    transform: scale(1.05);
+}
+/* Formulaire */
+form {
+    max-width: 600px; /* Largeur maximale du formulaire */
+    margin: 20px auto; /* Centrer le formulaire */
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre autour du formulaire */
+}
+
+label {
+    display: block; /* Pour que les labels prennent toute la largeur */
+    margin-bottom: 5px;
+    color: #555; /* Couleur des labels */
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+select {
+    width: 100%; /* Largeur pleine */
+    padding: 10px; /* Espacement interne */
+    margin-bottom: 15px; /* Espacement entre les éléments */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+}
+
+button {
+    background-color: #000000; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 15px; /* Espacement interne */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Changer le curseur au survol */
+    font-size: 16px; /* Taille de la police */
+}
+
+button:hover {
+    background-color: #000000; /* Couleur au survol */
+}
+
+/* Message d'erreur */
+.error-message {
+    color: red; /* Couleur rouge pour les messages d'erreur */
+    display: none; /* Cacher par défaut */
+    text-align: center; /* Centrer le texte */
+}
+
+/* Footer */
+footer {
+    background-color: #000000; /* Couleur de fond du footer */
+    color: white; /* Couleur du texte du footer */
+    text-align: center;
+    padding: 10px 0; /* Espacement vertical */
+    position: relative;
+    left: 0;
+    right: 0;
+    width: 100%;
+    bottom: 0;
+}

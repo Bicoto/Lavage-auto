@@ -1,0 +1,282 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    padding-bottom: 60px; /* Ajout d'un espace au-dessus du footer pour ne pas masquer le contenu */
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+nav h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 17px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #333;
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    background-color: #f0f0f0;
+    color: #000;
+    transform: scale(1.05);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 20px;
+    background-color: #f7f7f7;
+    position: relative; /* Position relative pour le positionnement absolu du titre */
+}
+
+.video-title {
+    position: absolute; /* Permet de superposer le titre au-dessus de la vidéo */
+    top: 50%; /* Positionne le titre verticalement au centre */
+    left: 50%; /* Positionne le titre horizontalement au centre */
+    transform: translate(-50%, -50%); /* Centre le titre parfaitement */
+    font-size: 50px; /* Ajustez la taille de la police selon vos besoins */
+    color: white; /* Changez la couleur si nécessaire */
+    z-index: 10; /* Assurez-vous que le titre soit au-dessus des autres éléments */
+}
+
+/* Conteneurs de Cartes */
+.prestations-card-container, 
+.produits-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+/* Cartes de Prestations et Produits */
+.prestations-card, 
+.produits-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prestations-card:hover, 
+.produits-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Images dans les Cartes */
+.prestations-card .card-image img, 
+.produits-card .card-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Contenu des Cartes */
+.prestations-card .card-content, 
+.produits-card .card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+/* Titres des Cartes */
+.prestations-card .card-content h2, 
+.produits-card .card-content h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Descriptions des Cartes */
+.description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Boutons dans les Cartes */
+.prestations-card .card-content a, 
+.produits-card .card-content a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.prestations-card .card-content a:hover, 
+.produits-card .card-content a:hover {
+    background-color: #555;
+}
+
+
+
+/* Descriptions des Cartes */
+.description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Boutons dans les Cartes */
+.card-content a, 
+.product-card-content a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.card-content a:hover, 
+.product-card-content a:hover {
+    background-color: #555; /* Légère différence de couleur au survol */
+}
+
+/* Caractéristiques des Cartes */
+.features {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Vidéo */
+.video-container {
+    width: 100%;
+    height: 100vh;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Footer */
+footer {
+    background-color: #000; /* Couleur de la barre noire */
+    color: #fff; /* Texte en blanc */
+    text-align: center;
+    padding: 20px 0; /* Ajoute de l'espace en haut et en bas du texte */
+    position: relative; /* Le footer n'est plus fixé en bas */
+    left: 0;
+    right: 0; /* S'assure que le footer s'étend sur toute la largeur */
+    width: 100%; /* Prend 100% de la largeur */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Ombre au-dessus du footer */
+    font-size: 14px;
+    z-index: 1000;
+}
+
+footer p {
+    margin: 0; /* Supprime le margin par défaut */
+    line-height: 1.5; /* Améliore la lisibilité */
+}
+
+#cookieBanner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+}
+
+#cookieBanner p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#cookieBanner button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#cookieBanner button:hover {
+    background-color: #45a049;
+}
+
+
+#a-propos {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#a-propos h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.a-propos-container p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin: 10px 0;
+}
