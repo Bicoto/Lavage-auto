@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 26 mars 2025 à 21:01
+-- Généré le : mer. 09 avr. 2025 à 16:53
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.0.30
 
@@ -92,7 +92,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nom`, `prenom`, `email`, `password`) VALUES
 (0, 'bicoto', 'Tery', 'tbicoto@gmail.com', '$2y$10$QIxcWYqhYJQ.T/0jPSZhv.DHdV49ic9pCrp73L8Gk4oubkAvONIxC'),
-(0, 'Monkey', 'Luffy', 'LuffyMonkey@gmail.com', '$2y$10$cvHnfYXO1Qfdaym/30RTrudkBmW1Xa9GyEhGHE0r0vI55fD2QCy5y');
+(0, 'Monkey', 'Luffy', 'LuffyMonkey@gmail.com', '$2y$10$cvHnfYXO1Qfdaym/30RTrudkBmW1Xa9GyEhGHE0r0vI55fD2QCy5y'),
+(0, 'Joseph', 'Jephte ', 'tbicoto@gmail.com', '$2y$10$QkTYw0iSwMS4stn/NNreq.5U.MtnwmArtzTDQZArJbywbNth20Ciq');
 
 --
 -- Index pour les tables déchargées
