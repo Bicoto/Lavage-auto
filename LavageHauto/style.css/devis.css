@@ -1,0 +1,238 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /LavageHauto/vues/login.php");
+    exit();
+    
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="devis.css">
+    <title>Formulaire de devis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si l'utilisateur est connecté
+            if (!<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+                alert("Veuillez vous connecter pour faire un devis.");
+                window.location.href = "/LavageHauto/vues/login.php";
+            }
+        });
+    </script>
+</head>
+<body>
+<nav>
+    <h1>Lavage</h1>
+    <ul>
+        <li class="active">
+            <a href="/LavageHauto/vues/Accueil.php">Accueil</a>
+        </li>
+        <li>
+            <a href="/LavageHauto/vues/prestation.php">Nos prestations</a>
+        </li>
+        <li>
+            <a href="/LavageHauto/vues/produit.php">Nos produits</a>
+        </li>
+        <li>
+            <a href="/LavageHauto/vues/devis.php">Faire un devis</a>
+        </li>
+        
+    </ul>
+</nav>
+
+
+    <h2>Formulaire de Devis</h2>
+    <form id="devisForm">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required><br><br>
+
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required><br><br>
+
+        <label for="telephone">Téléphone :</label>
+        <input type="tel" id="telephone" name="telephone" required><br><br>
+
+        <label for="adresse">Adresse :</label>
+        <input type="text" id="adresse" name="adresse" required><br><br>
+
+        <label for="email">E-mail :</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="choix">Choix :</label>
+        <select id="choix" name="choix" required>
+            <option value="">--Sélectionner une option--</option>
+            <option value="prestation">Prestation</option>
+            <option value="produit">Produit</option>
+        </select><br><br>
+
+        <label for="detailsChoix">Détails :</label>
+        <select id="detailsChoix" name="detailsChoix" required>
+            <option value="">--Sélectionner un choix--</option>
+        </select><br><br>
+
+        <label for="quantite">Quantité :</label>
+        <input type="number" id="quantite" name="quantite" min="1" required><br><br>
+
+        <button type="button" onclick="genererDevis()">Envoyer</button>
+        <p class="error-message" id="error-message">Veuillez remplir tous les champs avant de générer le devis.</p>
+    </form>
+
+    <footer>
+        <p>© 2024 Lavage de Luxe. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Prix des prestations et produits 
+        const prix = {
+            prestations: {
+                "Lavage Extérieur": 69,
+                "Lavage Intérieur": 59,
+                "Lavage Extérieur et Intérieur": 109,
+                "Traitement Céramique": 39,
+                "Lustrage Intégral": 49
+            },
+            produits: {
+                "Coffret Lavage Normal": 12,
+                "Coffret Lavage Premium": 21,
+                "Coffret Lavage Exclusif": 35,
+                "Bouteille de Savon Ultra Moussant": 6,
+                "Pulvérisateur Lustrant Déperlant": 4,
+                "Cire Lustrante": 16
+            }
+        };
+
+        const prestations = Object.keys(prix.prestations);
+        const produits = Object.keys(prix.produits);
+
+        document.getElementById('choix').addEventListener('change', function() {
+            const choix = this.value;
+            const detailsChoix = document.getElementById('detailsChoix');
+            detailsChoix.innerHTML = ''; 
+
+            let options = '';
+            if (choix === 'prestation') {
+                prestations.forEach(function(prestation) {
+                    options += `<option value="${prestation}">${prestation}</option>`;
+                });
+            } else if (choix === 'produit') {
+                produits.forEach(function(produit) {
+                    options += `<option value="${produit}">${produit}</option>`;
+                });
+            }
+            detailsChoix.innerHTML = options;
+        });
+        async function genererDevis() {
+    const nom = document.getElementById('nom').value;
+    const prenom = document.getElementById('prenom').value;
+    const telephone = document.getElementById('telephone').value;
+    const adresse = document.getElementById('adresse').value;
+    const email = document.getElementById('email').value;
+    const choix = document.getElementById('choix').value;
+    const detailsChoix = document.getElementById('detailsChoix').value;
+    const quantite = parseInt(document.getElementById('quantite').value);
+    const errorMessage = document.getElementById('error-message');
+
+    if (!nom || !prenom || !telephone || !adresse || !email || !choix || !detailsChoix || !quantite) {
+        errorMessage.style.display = 'block';
+        return;
+    } else {
+        errorMessage.style.display = 'none';
+
+        const prixHT = choix === 'prestation' ? prix.prestations[detailsChoix] : prix.produits[detailsChoix];
+        const totalHT = prixHT * quantite;
+        const tvaRate = 0.20;
+        const tva = totalHT * tvaRate;
+        const totalTTC = totalHT + tva;
+
+        // Date, heure et identifiant
+        const now = new Date();
+        const date = now.toLocaleDateString('fr-FR');
+        const time = now.toLocaleTimeString('fr-FR');
+        const devisId = 'DEV' + now.getFullYear() +
+            String(now.getMonth() + 1).padStart(2, '0') +
+            String(now.getDate()).padStart(2, '0') + '-' +
+            Math.floor(Math.random() * 10000);
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Couleurs
+        const bleu = [30, 87, 153];
+        const grisClair = [240, 240, 240];
+
+        // Titre
+        doc.setFontSize(22);
+        doc.setTextColor(...bleu);
+        doc.setFont("helvetica", "bold");
+        doc.text("Devis", 20, 20);
+
+        // Infos de date et ID
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text(`Date : ${date}`, 150, 20, { align: "right" });
+        doc.text(`Heure : ${time}`, 150, 26, { align: "right" });
+        doc.text(`ID Devis : ${devisId}`, 150, 32, { align: "right" });
+
+        // Infos entreprise
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont("helvetica", "normal");
+        doc.text("Lavage de Luxe", 20, 30);
+        doc.text("Rue Raspail, 97110 Pointe-à-Pitre", 20, 36);
+        doc.text("Téléphone : 0690 961 415", 20, 42);
+        doc.text("Email : lavage.deluxe@gmail.com", 20, 48);
+
+        // Infos client
+        doc.setFont("helvetica", "bold");
+        doc.text("Informations du client", 20, 60);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Nom : ${prenom} ${nom}`, 20, 68);
+        doc.text(`Adresse : ${adresse}`, 20, 74);
+        doc.text(`Téléphone : ${telephone}`, 20, 80);
+        doc.text(`Email : ${email}`, 20, 86);
+
+        // Détails du devis
+        doc.setFont("helvetica", "bold");
+        doc.text("Détails du Devis", 20, 100);
+
+        // Tableau
+        doc.setFillColor(...bleu);
+        doc.setTextColor(255, 255, 255);
+        doc.rect(20, 106, 170, 10, 'F');
+        doc.text("Description", 22, 113);
+        doc.text("Quantité", 110, 113);
+        doc.text("Prix HT", 140, 113);
+        doc.text("Total", 170, 113, { align: "right" });
+
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(0, 0, 0);
+        doc.setFillColor(...grisClair);
+        doc.rect(20, 116, 170, 10, 'F');
+        doc.text(detailsChoix, 22, 123);
+        doc.text(String(quantite), 110, 123);
+        doc.text(`${prixHT.toFixed(2)} €`, 140, 123);
+        doc.text(`${totalHT.toFixed(2)} €`, 170, 123, { align: "right" });
+
+        // Totaux
+        doc.text(`Total HT : ${totalHT.toFixed(2)} €`, 20, 140);
+        doc.text(`Total TVA (20%) : ${tva.toFixed(2)} €`, 20, 146);
+        doc.text(`Total TTC : ${totalTTC.toFixed(2)} €`, 20, 152);
+
+        // Conditions
+        doc.setFontSize(10);
+        doc.text("Conditions de paiement : Paiement sous 30 jours.", 20, 170);
+        doc.text("Merci pour votre confiance !", 20, 176);
+
+        // Enregistrement
+        doc.save("devis_lavage.pdf");
+    }
+}
+
+    </script>
+</body>
+</html>
